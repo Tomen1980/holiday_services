@@ -12,7 +12,7 @@ class HolidayController {
     const endDate = req.query.endDate ? new Date(req.query.endDate) : null;
 
     const data = await HolidayService.getHolidays(year, month, date, startDate, endDate);
-    return ApiResponse.success(res, "Holidays retrieved successfully", data);
+    return ApiResponse.success(res,data, "Holidays retrieved successfully");
   }
 
   async createHoliday(req, res) {
