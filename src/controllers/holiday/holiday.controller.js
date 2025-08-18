@@ -36,6 +36,15 @@ class HolidayController {
     await HolidayService.deleteHoliday(holidayId);
     return ApiResponse.success(res, null, "Holiday deleted successfully");
   }
+
+  async uploadHolidays(req, res) {
+    const filePath = req.file;
+    if (!filePath) {
+      return ApiResponse.error(res, "File upload failed", 400);
+    }
+    await HolidayService.uploadHolidays(filePath);
+    return ApiResponse.success(res, null, "Holidays uploaded successfully");
+  }
 }
 
 export default new HolidayController();

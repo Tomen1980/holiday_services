@@ -30,6 +30,13 @@ class HolidayRepository extends BaseRepository {
   async findByDate(date) {
     return this.model.findUnique({ where: { date: new Date(date) } });
   }
+
+  async createMany(holidays) {
+    return this.model.createMany({
+      data: holidays,
+      skipDuplicates: true // Skip duplicates if any
+    });
+  }
 }
 
 export default new HolidayRepository();
