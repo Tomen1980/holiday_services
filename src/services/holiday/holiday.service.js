@@ -109,8 +109,14 @@ class HolidayService {
         .on("end", async () => {
           try {
             await holidayRepository.createMany(events);
-            resolve({ events, filePath: relativePath }); // kirim data + path relatif
+            fs.unlink(file.path, (err) => {
+              if (err) console.error("⚠️ Gagal hapus file:", err);
+            });
+            resolve({ events, filePath: relativePath }); 
           } catch (err) {
+            fs.unlink(file.path, (err) => {
+              if (err) console.error("⚠️ Gagal hapus file:", err);
+            });
             reject(new ApiError("Failed to import CSV", 500));
           }
         })
